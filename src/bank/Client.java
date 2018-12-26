@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
 
 public class Client extends JFrame {
 
@@ -178,10 +180,17 @@ public class Client extends JFrame {
     });
     contentPane.add(button_3);
     
-    JButton button_4 = new JButton("退出");
+    JButton button_4 = new JButton("保存并退出");
     button_4.setBounds(443, 252, 113, 27);
     button_4.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
+        try {
+          Database.saveFile("D:\\database.txt");
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        Database.logger.log(Level.INFO,"程序退出");
         System.exit(0);
       }
     });
@@ -235,8 +244,10 @@ public class Client extends JFrame {
     }
     public void actionPerformed(ActionEvent e) {
       if(currentRole.compareTo(Role.NULL)>0) {
+        Database.logger.log(Level.INFO, "当前用户 "+currentUID+" 注销");
         setRole(Role.Administrator, Role.NULL);
         setUID(Role.Administrator,"N/A");
+        table.setModel(new TableModel());
         JOptionPane.showMessageDialog(Client.this, "Successfully logged out.\nNow your uid is N/A");
       }else {
         JOptionPane.showMessageDialog(Client.this, "No need to log out");

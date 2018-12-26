@@ -100,7 +100,7 @@ public class Add {
     contentPane.add(textField_7);
     textField_7.setColumns(10);
 
-    JButton button = new JButton("\u4FEE\u6539");
+    JButton button = new JButton("ÐÂ½¨");
     button.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         if (!textField_1.getText().equals("") && !textField_2.getText().equals("")
